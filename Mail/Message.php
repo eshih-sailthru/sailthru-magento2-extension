@@ -38,4 +38,16 @@ class Message extends \Magento\Framework\Mail\Message
 
         return false;
     }
+
+    /**
+     * Get decoded MIME body text
+     *
+     * @return string
+     */
+    public function getDecodedBodyText()
+    {
+        return !empty($this->getBody()) && !empty($this->getBody()->getParts()[0])
+            ? $this->getBody()->getParts()[0]->getRawContent()
+            : '';
+    }
 }

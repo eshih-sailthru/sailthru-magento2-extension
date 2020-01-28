@@ -99,7 +99,7 @@ class Transport extends \Magento\Framework\Mail\Transport implements \Magento\Fr
     public function sendViaAPI($templateData, $storeId)
     {
         $client = $this->clientManager->getClient(true, $storeId);
-        if (version_compare($this->sailthruSettings->getMagentoVersion(), '2.3.0', '<')) {
+        if (version_compare($this->sailthruSettings->getMagentoVersion(), '2.2.8', '<')) {
             $message = $this->getMessage();
             $to      = $this->cleanEmails(implode(',', $message->getRecipients()));
             $subject = $message->getSubject();
@@ -108,7 +108,7 @@ class Transport extends \Magento\Framework\Mail\Transport implements \Magento\Fr
             $message = ZendMessage::fromString($this->getMessage()->getRawMessage());
             $to      = $this->prepareRecipients($message);
             $subject = $this->prepareSubject($message);
-            $body    = $this->prepareBody($message);
+            $body    = $this->getMessage()->getDecodedBodyText();
         }
         $vars = [
             "subj" => $subject,
