@@ -97,7 +97,7 @@ class Transport extends \Magento\Framework\Mail\Transport implements \Magento\Fr
 
             if ($this->sailthruSettings->getTransactionalsEnabled($storeId) && $template['name'] != 'disableSailthru') {
                 $emailData = $this->getEmailData();
-                if ($this->sailthruSettings->getTransactionalsProcessQueueEnabled($storeId)) {
+                if ($this->sailthruSettings->getUseEmailQueue($storeId)) {
                     $this->emailSendPublisher->execute([
                         'template_data' => $templateData,
                         'email_data'    => $emailData,
